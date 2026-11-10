@@ -4,8 +4,8 @@ Aplicación web CRUD con Flask y PostgreSQL para gestionar una concesionaria de 
 inspirada en Moto Sport Suzuki (Huila).
 
 ## Integrantes
-- Sebastian [apellidos]
-- [Nombre del compañero]
+- Juan Sebastian Trujillo Muñoz
+- Andrés Camilo Vanegas Caviedes
 
 ## Tecnologías
 Python 3, Flask, PostgreSQL, HTML5, Bootstrap 5, Git y GitHub
