@@ -1,0 +1,177 @@
+{% extends "base.html" %}
+
+{% block titulo %}Moto Sport Suzuki Neiva{% endblock %}
+
+{% block css_extra %}
+<link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
+{% endblock %}
+
+{% block contenido_completo %}
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div class="hero-video-wrap">
+    {% set video = url_for('static', filename='videos/suzuki.mp4') %}
+    <video class="v-slide v-active kb-right" src="{{ video }}" autoplay muted loop playsinline></video>
+    <video class="v-slide kb-left" src="{{ video }}" autoplay muted loop playsinline></video>
+    <video class="v-slide kb-zoom" src="{{ video }}" autoplay muted loop playsinline></video>
+    <div class="hero-overlay"></div>
+    <div class="hero-vignette"></div>
+  </div>
+
+  <div class="hero-bar">
+    <div class="hb-item"><strong>+15 años</strong><span>en el Huila</span></div>
+    <div class="hb-item"><strong>+5.000</strong><span>clientes</span></div>
+    <div class="hb-item"><strong>100%</strong><span>huilense</span></div>
+    <div class="hb-item"><strong>WhatsApp</strong><span>soporte 24/7</span></div>
+  </div>
+</section>
+
+<!-- NOSOTROS -->
+<section class="section ms-nosotros" id="nosotros">
+  <div class="ms-left-panel" data-aos="fade-right">
+    <div class="ms-about-content">
+      <div class="ms-about-section">
+        <h4>¿QUIÉNES SOMOS?</h4>
+        <p>Somos una empresa 100% huilense con 10 años de experiencia, distribuidores directos de SUZUKI. Ofrecemos venta de motocicletas, centro especializado de atención, taller autorizado y un servicio post-venta integral con personal altamente capacitado.</p>
+      </div>
+      <div class="ms-about-section">
+        <h4>NUESTRA MISIÓN</h4>
+        <p>Asegurar la satisfacción de nuestros clientes mediante un trato personalizado y asesoría transparente, tanto en la compra de motocicletas como en repuestos y accesorios.</p>
+      </div>
+      <div class="ms-about-section">
+        <h4>NUESTRA VISIÓN</h4>
+        <p>Consolidarnos como el concesionario líder en la región, respaldados por un equipo de profesionales con experiencia y valores, garantizando un servicio excepcional en cada etapa de su experiencia SUZUKI.</p>
+      </div>
+      <div class="ms-about-section ms-about-video">
+        <h4>NUESTRA HISTORIA</h4>
+        <div class="video-wrapper">
+          <video controls>
+            <source src="{{ url_for('static', filename='videos/historia-motosport.mp4') }}" type="video/mp4">
+            Tu navegador no soporta el elemento de video.
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ms-right-panel" data-aos="fade-left">
+    <iframe id="mapFrame"
+      src="https://maps.google.com/maps?q=Calle+4+%236-44+Neiva+Huila+Colombia&z=16&output=embed"
+      width="100%" height="100%" style="border:0; position: absolute; inset: 0;" allowfullscreen loading="lazy"></iframe>
+    <div class="map-overlay-controls">
+      <button class="map-btn active" onclick="changeMap('NeivaPrincipal', this)">Principal Neiva</button>
+      <button class="map-btn" onclick="changeMap('NeivaVenta', this)">Venta Neiva</button>
+      <button class="map-btn" onclick="changeMap('LaPlata', this)">La Plata</button>
+      <button class="map-btn" onclick="changeMap('Campoalegre', this)">Campoalegre</button>
+    </div>
+  </div>
+</section>
+
+<!-- CARRUSEL DE MOTOS -->
+{% set carrusel = [
+  ('gsxr-1000r.webp', 'GSX-R1000R', 'La reina de las superdeportivas. Potencia, tecnología y rendimiento sin límites en pista y calle.', 1.15),
+  ('V-STROM_250SX.png', 'V-STROM 250 SX', 'Aventura ligera y versátil. Descubre nuevos caminos con la comodidad que necesitas para viajar.', 1.35),
+  ('HAYABUSA-GRIS.webp', 'HAYABUSA', 'La leyenda aerodinámica. Rendimiento supersport definitivo y una aceleración que desafía la física.', 1.15),
+  ('GIXXER-250-FI-AZUL.webp', 'GIXXER 250 FI', 'Carácter deportivo con un motor robusto de 250cc. La mezcla perfecta entre uso urbano y viajes.', 1.05),
+  ('burgman-street-125-1.webp', 'BURGMAN STREET 125', 'El maxi-scooter premium más compacto. Comodidad, espacio y elegancia para moverte por la ciudad.', 1.1),
+  ('DL650XAM4_YU1_Right-scaled.webp', 'V-STROM 650 XT', 'La compañera ideal para la gran aventura. Excelente rendimiento en cualquier terreno.', 1.05),
+  ('GIXXER-150-DI-AZUL.webp', 'GIXXER 150 DI', 'Diseño agresivo y maniobrabilidad excepcional. Domina las calles con estilo deportivo.', 1.0),
+  ('GIXXER-FI-150-AZUL.webp', 'GIXXER FI 150', 'Eficiencia y rendimiento con inyección electrónica. Ideal para tu movilidad diaria.', 1.0),
+  ('GSX-R150.png', 'GSX-R150', 'ADN de carreras en una moto ligera. Aceleración emocionante para quienes viven la pasión deportiva.', 1.2),
+  ('GSX8S.webp', 'GSX-8S', 'Una naked con alma de superbike. Potencia legendaria y control absoluto en cada curva.', 1.1),
+  ('gixxer-250-di.webp', 'GIXXER 250', 'Refrigeración optimizada y diseño musculoso. Rendimiento superior sin carenado.', 1.1)
+] %}
+
+<section class="section moto-carousel-section" id="motos">
+  <div class="nos-stripe nos-stripe-left"></div>
+  <div class="nos-stripe nos-stripe-right"></div>
+
+  <div class="moto-carousel-container" data-aos="fade-up">
+    <button class="mc-nav-btn mc-prev" onclick="moveMoto(-1, true)" aria-label="Anterior">&#10094;</button>
+
+    <div class="moto-carousel-track" id="motoTrack">
+      {% for imagen, nombre, descripcion, escala in carrusel %}
+      <div class="moto-slide">
+        <img src="{{ url_for('static', filename='img/motos/' ~ imagen) }}" alt="{{ nombre }}"
+             class="moto-slide-img" style="--base-scale: {{ escala }};">
+        <div class="moto-slide-info">
+          <p class="moto-slide-title">{{ nombre }}</p>
+          <p class="moto-slide-desc">{{ descripcion }}</p>
+          <a href="#contacto" class="moto-slide-btn">CONOCE MÁS</a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <button class="mc-nav-btn mc-next" onclick="moveMoto(1, true)" aria-label="Siguiente">&#10095;</button>
+  </div>
+</section>
+
+<!-- SERVICIOS -->
+<div id="accesorios"></div>
+<section class="section dark" id="servicios">
+  <div class="svs-grid">
+    <div class="sv" data-aos="fade-up" data-aos-delay="0"><span>🔧</span>
+      <h3>SERVICIO TÉCNICO</h3>
+      <p>Diagnóstico y mantenimiento con técnicos certificados por Suzuki Motor de Colombia.</p>
+    </div>
+    <div class="sv" data-aos="fade-up" data-aos-delay="80"><span>🛻</span>
+      <h3>MOTO-GRUA</h3>
+      <p>Si tu moto se vara en Neiva, te la recogemos gratis. Así de sencillo.</p>
+    </div>
+    <div class="sv" data-aos="fade-up" data-aos-delay="160"><span>💳</span>
+      <h3>FINANCIACIÓN</h3>
+      <p>Planes con PROGRESER y otras entidades. Te ayudamos a encontrar el plan que te funcione.</p>
+    </div>
+    <div class="sv" data-aos="fade-up" data-aos-delay="240"><span>🧽</span>
+      <h3>LAVADO</h3>
+      <p>Cada vez que traes tu moto a servicio, se va limpia. Sin costo adicional.</p>
+    </div>
+    <div class="sv" data-aos="fade-up" data-aos-delay="320"><span>🏢</span>
+      <h3>CLIENTES EMPRESA</h3>
+      <p>Flotillas, mantenimientos programados y precios especiales para negocios.</p>
+    </div>
+    <div class="sv" data-aos="fade-up" data-aos-delay="400"><span>⚙️</span>
+      <h3>REPUESTOS</h3>
+      <p>Stock permanente de repuestos originales Suzuki. La mayoría disponibles de inmediato.</p>
+    </div>
+  </div>
+</section>
+
+<!-- REPUESTOS -->
+<section class="section repuestos-section" id="repuestos">
+  <div class="rep-stripe rep-stripe-left"></div>
+  <div class="rep-stripe rep-stripe-right"></div>
+
+  <div class="floating-parts" aria-hidden="true">
+    <div class="fpart part-sprite" style="--delay:0s; --dur:15s; --y:10%; --size:5rem; --pos:0% 0%;"></div>
+    <div class="fpart part-sprite" style="--delay:3s; --dur:18s; --y:65%; --size:6rem; --pos:33% 0%;"></div>
+    <div class="fpart part-sprite" style="--delay:6s; --dur:12s; --y:35%; --size:5rem; --pos:66% 0%;"></div>
+    <div class="fpart part-sprite" style="--delay:1s; --dur:20s; --y:85%; --size:4.5rem; --pos:100% 0%;"></div>
+    <div class="fpart part-sprite fpart-rev" style="--delay:2s; --dur:14s; --y:20%; --size:5.5rem; --pos:0% 50%;"></div>
+    <div class="fpart part-sprite fpart-rev" style="--delay:5s; --dur:16s; --y:50%; --size:5rem; --pos:33% 50%;"></div>
+    <div class="fpart part-sprite fpart-rev" style="--delay:8s; --dur:19s; --y:15%; --size:5.2rem; --pos:66% 50%;"></div>
+    <div class="fpart part-sprite fpart-rev" style="--delay:4s; --dur:15s; --y:75%; --size:4.8rem; --pos:100% 50%;"></div>
+    <div class="fpart part-sprite" style="--delay:10s; --dur:17s; --y:90%; --size:4.5rem; --pos:0% 100%;"></div>
+    <div class="fpart part-sprite" style="--delay:7s; --dur:22s; --y:40%; --size:6rem; --pos:50% 100%;"></div>
+    <div class="fpart part-sprite" style="--delay:9s; --dur:13s; --y:30%; --size:4rem; --pos:100% 100%;"></div>
+    <div class="fpart part-sprite" style="--delay:12s; --dur:14s; --y:5%; --size:4.5rem; --pos:33% 0%;"></div>
+    <div class="fpart part-sprite fpart-rev" style="--delay:14s; --dur:16s; --y:80%; --size:5.2rem; --pos:66% 0%;"></div>
+    <div class="fpart part-sprite" style="--delay:11s; --dur:19s; --y:25%; --size:4rem; --pos:0% 50%;"></div>
+    <div class="fpart part-sprite fpart-rev" style="--delay:13s; --dur:13s; --y:55%; --size:5.8rem; --pos:100% 100%;"></div>
+    <div class="fpart part-sprite" style="--delay:15s; --dur:21s; --y:45%; --size:4.8rem; --pos:33% 50%;"></div>
+  </div>
+
+  <div class="repuestos-img-container">
+    <img src="{{ url_for('static', filename='img/repuestos/partes-genuinas.png') }}"
+         alt="Partes Genuinas Suzuki" class="repuestos-main-img" data-aos="zoom-in">
+  </div>
+</section>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script src="{{ url_for('static', filename='js/inicio.js') }}"></script>
+{% endblock %}
