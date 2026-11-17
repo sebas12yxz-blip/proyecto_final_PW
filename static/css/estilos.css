@@ -1,0 +1,98 @@
+/* Estilos del CRUD integrados con el rediseño MotoSport.
+   Usa las variables --red, --red-d, --blue y --fh definidas en motosport.css */
+
+/* Espacio para que el footer en forma de pico no tape el contenido */
+.contenido-crud {
+  min-height: 60vh;
+  padding-top: 3rem;
+  padding-bottom: 7rem;
+}
+
+.titulo-seccion {
+  font-family: var(--fh);
+  color: var(--blue);
+  border-left: 6px solid var(--red);
+  padding-left: 0.75rem;
+  margin-bottom: 0;
+}
+
+.texto-rojo {
+  color: var(--red);
+}
+
+.btn-motosport {
+  background-color: var(--red);
+  border-color: var(--red);
+  color: #fff;
+}
+
+.btn-motosport:hover {
+  background-color: var(--red-d);
+  border-color: var(--red-d);
+  color: #fff;
+}
+
+/* Encabezado de tablas en azul Suzuki */
+.tabla-motosport thead th {
+  --bs-table-bg: var(--blue);
+  --bs-table-color: #fff;
+}
+
+.formulario {
+  max-width: 600px;
+}
+
+/* Menú "Gestión" dentro del navbar del rediseño */
+.links .dropdown-menu {
+  background: rgba(0, 28, 80, 0.98);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.links .dropdown-item {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.links .dropdown-item:hover {
+  background: var(--red);
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .links .dropdown {
+    width: 100%;
+  }
+
+  .links .dropdown-menu {
+    position: static !important;
+    transform: none !important;
+    width: 100%;
+    text-align: center;
+  }
+}
+/* Panel de imagen al lado de los formularios */
+.panel-imagen {
+  background: #f8f9fb;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.panel-imagen img {
+  width: 100%;
+  max-height: 320px;
+  object-fit: contain;
+  filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.15));
+  margin-bottom: 1.5rem;
+}
+
+.panel-imagen p {
+  font-family: var(--fh);
+  font-size: 1.25rem;
+  color: var(--blue);
+  margin: 0;
+}
