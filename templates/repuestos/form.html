@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block titulo %}{{ titulo }}{% endblock %}
+{% block contenido %}
+<h2 class="titulo-seccion mb-4">{{ titulo }}</h2>
+
+<div class="row g-4 justify-content-center">
+  <!-- FORMULARIO -->
+  <div class="col-lg-7">
+    <form method="post" class="card card-body h-100">
+      <p class="text-muted small mb-3">Los campos marcados con <span class="text-danger">*</span> son obligatorios.</p>
+
+      <div class="mb-3">
+        <label for="id_moto" class="form-label">Moto <span class="text-danger">*</span></label>
+        <select id="id_moto" name="id_moto" class="form-select" required>
+          <option value="">-- Selecciona una moto --</option>
+          {% for m in motos %}
+            <option value="{{ m.id_moto }}"
+              {% if (repuesto.id_moto | string) == (m.id_moto | string) %}selected{% endif %}>
+              {{ m.modelo }}
+            </option>
+          {% endfor %}
+        </select>
+        <div class="form-text">Elige el modelo de moto para el que sirve este repuesto.</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="referencia" class="form-label">Referencia <span class="text-danger">*</span></label>
+        <input type="text" id="referencia" name="referencia" class="form-control" maxlength="30"
+               placeholder="Ej: REP-0013" value="{{ repuesto.referencia or '' }}" required>
+        <div class="form-text">Código único del repuesto: REP- seguido de 4 números. No puede repetirse.</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="nombre" class="form-label">Nombre <span class="text-danger">*</span></label>
+        <input type="text" id="nombre" name="nombre" class="form-control" maxlength="80"
+               placeholder="Ej: Pastillas de freno delanteras" value="{{ repuesto.nombre or '' }}" required>
+        <div class="form-text">Nombre descriptivo del repuesto (máximo 80 caracteres).</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="precio" class="form-label">Precio (COP) <span class="text-danger">*</span></label>
+        <input type="number" id="precio" name="precio" class="form-control" min="1" step="0.01"
+               placeholder="Ej: 85000" value="{{ repuesto.precio or '' }}" required>
+        <div class="form-text">Precio de venta en pesos colombianos, sin puntos ni signo $. Debe ser mayor que 0.</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="stock" class="form-label">Stock <span class="text-danger">*</span></label>
+        <input type="number" id="stock" name="stock" class="form-control" min="0" step="1"
+               placeholder="Ej: 10"
+               value="{{ repuesto.stock if repuesto.stock is defined and repuesto.stock is not none else '' }}" required>
+        <div class="form-text">Unidades disponibles en inventario. Escribe 0 si el repuesto está agotado.</div>
+      </div>
+
+      <div class="d-flex gap-2 mt-auto">
+        <button type="submit" class="btn btn-motosport">Guardar</button>
+        <a href="{{ url_for('repuestos.listar') }}" class="btn btn-secondary">Cancelar</a>
+      </div>
+    </form>
+  </div>
+
+  <!-- IMAGEN (solo en pantallas grandes) -->
+  <div class="col-lg-5 d-none d-lg-block">
+    <div class="panel-imagen h-100">
+      <img src="{{ url_for('static', filename='img/repuestos/partes-genuinas.png') }}" alt="Partes genuinas Suzuki">
+      <p>Repuestos originales Suzuki para cada modelo</p>
+    </div>
+  </div>
+</div>
+{% endblock %}
