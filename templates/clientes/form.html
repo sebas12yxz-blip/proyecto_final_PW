@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block titulo %}{{ titulo }}{% endblock %}
+{% block contenido %}
+<h2 class="titulo-seccion mb-4">{{ titulo }}</h2>
+
+<div class="row g-4 justify-content-center">
+  <div class="col-lg-7">
+    <form method="post" class="card card-body h-100">
+      <p class="text-muted small mb-3">Los campos marcados con <span class="text-danger">*</span> son obligatorios.</p>
+
+      <div class="mb-3">
+        <label for="cedula" class="form-label">Cédula <span class="text-danger">*</span></label>
+        <input type="text" id="cedula" name="cedula" class="form-control" maxlength="10"
+               placeholder="Ej: 1075263418" value="{{ cliente.cedula or '' }}" required>
+        <div class="form-text">Número de documento, entre 6 y 10 dígitos, sin puntos. No puede repetirse.</div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="nombres" class="form-label">Nombres <span class="text-danger">*</span></label>
+          <input type="text" id="nombres" name="nombres" class="form-control" maxlength="60"
+                 placeholder="Ej: Carlos Andrés" value="{{ cliente.nombres or '' }}" required>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="apellidos" class="form-label">Apellidos <span class="text-danger">*</span></label>
+          <input type="text" id="apellidos" name="apellidos" class="form-control" maxlength="60"
+                 placeholder="Ej: Muñoz Rojas" value="{{ cliente.apellidos or '' }}" required>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="telefono" class="form-label">Teléfono <span class="text-danger">*</span></label>
+        <input type="text" id="telefono" name="telefono" class="form-control" maxlength="10"
+               placeholder="Ej: 3156284719" value="{{ cliente.telefono or '' }}" required>
+        <div class="form-text">Número celular de 10 dígitos, sin espacios ni guiones.</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="correo" class="form-label">Correo electrónico <span class="text-danger">*</span></label>
+        <input type="email" id="correo" name="correo" class="form-control" maxlength="120"
+               placeholder="Ej: carlos.munoz@gmail.com" value="{{ cliente.correo or '' }}" required>
+        <div class="form-text">Correo de contacto del cliente. No puede repetirse.</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="ciudad" class="form-label">Ciudad <span class="text-danger">*</span></label>
+        <input type="text" id="ciudad" name="ciudad" class="form-control" maxlength="60"
+               placeholder="Ej: Neiva" value="{{ cliente.ciudad or '' }}" required>
+        <div class="form-text">Ciudad o municipio de residencia.</div>
+      </div>
+
+      <div class="d-flex gap-2 mt-auto">
+        <button type="submit" class="btn btn-motosport">Guardar</button>
+        <a href="{{ url_for('clientes.listar') }}" class="btn btn-secondary">Cancelar</a>
+      </div>
+    </form>
+  </div>
+
+  <div class="col-lg-5 d-none d-lg-block">
+    <div class="panel-imagen h-100">
+      <img src="{{ url_for('static', filename='img/Clientes/imageclientes.jfif') }}" alt="Clientes Suzuki MotoSport">
+      <p>Clientes de la familia Suzuki MotoSport</p>
+    </div>
+  </div>
+</div>
+{% endblock %}
