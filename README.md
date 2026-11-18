@@ -122,7 +122,6 @@ proyecto_final_PW/
 ├── static/             # CSS, JavaScript, imágenes y videos
 ├── database/           # Scripts SQL y backup.sql
 ├── docs/               # MER, diccionario de datos, plan de pruebas y capturas
-├── tests/              # Pruebas automatizadas
 ├── requirements.txt
 ├── .env.example
 ├── .gitignore
