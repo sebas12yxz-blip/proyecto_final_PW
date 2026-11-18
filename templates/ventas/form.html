@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% block titulo %}{{ titulo }}{% endblock %}
+{% block contenido %}
+<h2 class="titulo-seccion mb-4">{{ titulo }}</h2>
+
+<div class="row g-4 justify-content-center">
+  <div class="col-lg-7">
+    <form method="post" class="card card-body h-100">
+      <p class="text-muted small mb-3">Los campos marcados con <span class="text-danger">*</span> son obligatorios.</p>
+
+      <div class="mb-3">
+        <label for="id_cliente" class="form-label">Cliente <span class="text-danger">*</span></label>
+        <select id="id_cliente" name="id_cliente" class="form-select" required>
+          <option value="">-- Selecciona un cliente --</option>
+          {% for c in clientes %}
+            <option value="{{ c.id_cliente }}"
+              {% if (venta.id_cliente | string) == (c.id_cliente | string) %}selected{% endif %}>
+              {{ c.apellidos }}, {{ c.nombres }} — C.C. {{ c.cedula }}
+            </option>
+          {% endfor %}
+        </select>
+        <div class="form-text">Persona que compra la moto. Si no aparece, regístrala primero en Clientes.</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="id_vendedor" class="form-label">Vendedor <span class="text-danger">*</span></label>
+        <select id="id_vendedor" name="id_vendedor" class="form-select" required>
+          <option value="">-- Selecciona un vendedor --</option>
+          {% for ve in vendedores %}
+            <option value="{{ ve.id_vendedor }}"
+              {% if (venta.id_vendedor | string) == (ve.id_vendedor | string) %}selected{% endif %}>
+              {{ ve.nombres }} {{ ve.apellidos }}
+            </option>
+          {% endfor %}
+        </select>
+        <div class="form-text">Asesor que realizó la venta.</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="id_moto" class="form-label">Moto <span class="text-danger">*</span></label>
+        <select id="id_moto" name="id_moto" class="form-select" required>
+          <option value="">-- Selecciona una moto --</option>
+          {% for m in motos %}
+            <option value="{{ m.id_moto }}"
+              {% if (venta.id_moto | string) == (m.id_moto | string) %}selected{% endif %}>
+              {{ m.modelo }} — Precio de lista: $ {{ "{:,.0f}".format(m.precio_lista) }}
+            </option>
+          {% endfor %}
+        </select>
+        <div class="form-text">Modelo vendido. Se muestra su precio de lista como referencia.</div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="fecha_venta" class="form-label">Fecha de venta <span class="text-danger">*</span></label>
+          <input type="date" id="fecha_venta" name="fecha_venta" class="form-control"
+                 value="{{ venta.fecha_venta or '' }}" required>
+          <div class="form-text">No puede ser una fecha futura.</div>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="forma_pago" class="form-label">Forma de pago <span class="text-danger">*</span></label>
+          <select id="forma_pago" name="forma_pago" class="form-select" required>
+            <option value="">-- Selecciona --</option>
+            {% for f in formas_pago %}
+              <option value="{{ f }}" {% if venta.forma_pago == f %}selected{% endif %}>
+                {{ 'Crédito' if f == 'credito' else 'Contado' }}
+              </option>
+            {% endfor %}
+          </select>
+          <div class="form-text">Contado o crédito.</div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="numero_chasis" class="form-label">Número de chasis <span class="text-danger">*</span></label>
+        <input type="text" id="numero_chasis" name="numero_chasis" class="form-control" maxlength="25"
+               placeholder="Ej: MSZ-GDI-260013" value="{{ venta.numero_chasis or '' }}" required>
+        <div class="form-text">Identifica la unidad entregada. No puede repetirse.</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="precio_final" class="form-label">Precio final (COP) <span class="text-danger">*</span></label>
+        <input type="number" id="precio_final" name="precio_final" class="form-control" min="1" step="0.01"
+               placeholder="Ej: 10300000" value="{{ venta.precio_final or '' }}" required>
+        <div class="form-text">Valor pactado, sin puntos ni signo $. Puede ser menor al precio de lista si hubo descuento.</div>
+      </div>
+
+      <div class="d-flex gap-2 mt-auto">
+        <button type="submit" class="btn btn-motosport">Guardar</button>
+        <a href="{{ url_for('ventas.listar') }}" class="btn btn-secondary">Cancelar</a>
+      </div>
+    </form>
+  </div>
+
+  <div class="col-lg-5 d-none d-lg-block">
+    <div class="panel-imagen h-100">
+      <img src="{{ url_for('static', filename='img/Ventas/imageventas.jfif') }}" alt="Ventas Suzuki MotoSport">
+      <p>Cada venta, una nueva historia Suzuki</p>
+    </div>
+  </div>
+</div>
+{% endblock %}
