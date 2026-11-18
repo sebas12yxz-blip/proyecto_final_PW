@@ -137,7 +137,7 @@ def eliminar(id):
         cur.execute("DELETE FROM motos WHERE id_moto = %s", (id,))
         conn.commit()
         flash("Moto eliminada correctamente.", "success")
-    except errors.ForeignKeyViolation:
+    except (errors.ForeignKeyViolation, errors.RestrictViolation):
         conn.rollback()
         flash("No se puede eliminar: la moto tiene repuestos o ventas asociadas.", "warning")
     except Exception:
