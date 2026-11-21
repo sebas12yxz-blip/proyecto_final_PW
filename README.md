@@ -7,7 +7,7 @@ Proyecto final del curso de Programación Web – Universidad Surcolombiana.
 ## Integrantes
 
 - Juan Sebastian Trujillo Muñoz
-- Andrés Camilo Vanegas Caviedes
+- Camilo Andrés Vanegas Caviedes
 
 ## Tecnologías
 
